@@ -13,7 +13,7 @@
 			<a href="/apply">运行中流程(普通)</a>
 			<a href="/apply">已结束流程(普通)</a><br>
 			<a href="../workflow/read">部署流程</a>
-			<!-- <a href="../passpord/workflow">查询部署流程</a> -->
-			<a href="../workflow/deployHome">查询部署流程</a>
+			<a href="../workflow/deployHome">查询部署流程</a><br>
+			<a href="../employee/employeeHome">查看员工</a>
 </body>
 </html>

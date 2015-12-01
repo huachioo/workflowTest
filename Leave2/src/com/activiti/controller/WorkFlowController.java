@@ -48,7 +48,7 @@ public class WorkFlowController {
 		//request.getSession().setAttribute("pdList", pdList);
 		mav.addObject("depList", depList);
 		mav.addObject("pdList", pdList);
-		Deployment deployment = depList.get(0);
+		//Deployment deployment = depList.get(0);
 		//deployment.get
 		return mav;
 	}

@@ -1,5 +1,7 @@
 package com.activiti.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,10 +30,40 @@ public class EmployController {
 			//SessionContext.setUser(emp,request);
 			session.setAttribute("user", emp);
 			session.setAttribute("username", username);
-			System.out.println(emp.getName());
-			System.out.println(emp.getEmail());
 	        return "/main";
      
 	    }
-
+	   
+	   @RequestMapping("employeeHome")
+	   public String employeeHome(HttpServletRequest request)
+	   {
+		   List<Employee> employees = employeeService.getAllEmployee();
+		   request.setAttribute("employees", employees);
+		   return "/employeeList";	
+		   
+	   }
+	   
+	   @RequestMapping("addEmployee")
+	   public String addEmployee(Employee employee)
+	   {
+		   employeeService.addEmployee(employee);
+		   return "redirect:../employee/employeeHome";
+	   }
+	   
+	   @RequestMapping("deleteEmployee")
+	   public String deleteEmployee(HttpServletRequest request)
+	   {
+		   long id = Long.parseLong(request.getParameter("id"));
+		   employeeService.deleteEmployee(id);
+		   return "redirect:../employee/employeeHome";		   
+	   }
+	   
+	   @RequestMapping("updateEmployee")
+	   public String updateEmployee(Employee employee){
+		   System.out.println(employee.getManager());
+		   employeeService.updateEmployee(employee);
+		   System.out.println(employee.getManager());
+		   return "redirect:../employee/employeeHome";
+	   }
+	   
 }
