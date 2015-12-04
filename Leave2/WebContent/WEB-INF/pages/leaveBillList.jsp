@@ -43,15 +43,15 @@
 			            </td>
 			            <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
 				        	<c:if test="${p.state==0}">
-			        			<a href="${pageContext.request.contextPath }/leaveBillAction_input.action?id=<s:property value="id"/>" >修改</a>
-								<a href="leaveBillAction_delete.action?id=<s:property value="id"/>" >删除</a>
+			        			<a href="../leaveBill/updateLeaveBill" >修改</a>
+								<a href="../leaveBill/deleteLeaveBill?id=${p.id}" >删除</a>
 								<a href="../workflow/startProcess?id=${p.id }" >申请请假</a>
 			        		</c:if>
 			 				<c:if test="${p.state==1}">
 			 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=<s:property value="id"/>" >查看审核记录</a>
 			 				</c:if>
 			 				<c:if test="${p.state==2}">
-			 					<a href="leaveBillAction_delete.action?id=<s:property value="id"/>" >删除</a>
+			 					<a href="../leaveBill/deleteLeaveBill?id=${p.id}" >删除</a>
 			 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=<s:property value="id"/>" >查看审核记录</a>
 			 				</c:if>
 				        	

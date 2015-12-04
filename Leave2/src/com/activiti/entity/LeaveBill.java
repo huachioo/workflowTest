@@ -3,6 +3,8 @@ package com.activiti.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class LeaveBill implements Serializable {
 
@@ -13,7 +15,10 @@ public class LeaveBill implements Serializable {
 	private Long id;//id
 	private Integer days;// 请假时间
 	private String content;// 请假原因
-	private Date leaveDate = new Date();// 请假日期
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date leaveDate; // 请假日期
+	
 	private String remark;//备注
 	private Employee user;// 请假用户	
 	private Integer state=0;// 表单状态 0未执行 1执行中2已完成

@@ -113,6 +113,7 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 				 */
 				Map<String, Object> variables = new HashMap<String,Object>();
 				variables.put("inputUser", userName);//表示惟一用户
+				variables.put("leaveBill",leaveBill);
 				/**
 				 * 5：	(1)使用流程变量设置字符串（格式：LeaveBill.id的形式），通过设置，让启动的流程（流程实例）关联业务
 		   				(2)使用正在执行对象表中的一个字段BUSINESS_KEY（Activiti提供的一个字段），让启动的流程（流程实例）关联业务
@@ -240,6 +241,7 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 		 * */
 		Authentication.setAuthenticatedUserId((String) session.getAttribute("username"));
 		taskService.addComment(taskId, processInstanceId, message);
+		
 		
 		/**
 		 * 2：如果连线的名称是“默认提交”，那么就不需要设置，如果不是，就需要设置流程变量

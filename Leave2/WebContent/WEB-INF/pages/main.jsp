@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-			<a href="../leave/apply">请假申请(普通)</a>
+			<a href="../passport/addLeaveBill">请假申请(普通)</a>
 			<a href="../leaveBill/leaveBillHome">查询请假申请(普通)</a><br>
 			<a href="../workflow/tasklist">查看当前任务(普通)</a>
 			<a href="/apply">运行中流程(普通)</a>

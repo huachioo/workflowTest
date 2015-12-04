@@ -39,7 +39,7 @@
 		       <c:forEach items="${tasklist}" var="p">
 		      		<tr>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${p.id }</div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${p.name }</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">经理审批</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${p.createTime }</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${p.assignee }</div></td>
 				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">

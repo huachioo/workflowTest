@@ -37,4 +37,19 @@ public class LeaveBillDaoImpl extends HibernateDaoSupport implements LeaveBillDa
 		return this.getHibernateTemplate().get(LeaveBill.class, id);
 	}
 
+
+	@Override
+	public void saveLeaveBill(LeaveBill leaveBill) {
+		// TODO Auto-generated method stub
+		this.getHibernateTemplate().save(leaveBill);
+	}
+
+
+	@Override
+	public void deleteLeaveBillById(long id) {
+		// TODO Auto-generated method stub
+		LeaveBill leaveBill = this.findLeaveBillById(id);
+		this.getHibernateTemplate().delete(leaveBill);
+	}
+
 }

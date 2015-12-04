@@ -9,4 +9,8 @@ public interface LeaveBillService {
 
 	List<LeaveBill> findLeaveBillList(Employee employee);
 
+	void addLeaveBill(LeaveBill leaveBill);
+
+	void deleteLeaveBill(long id);
+
 }

@@ -25,4 +25,19 @@ public class LeaveBillServiceImpl implements LeaveBillService {
 		return list;
 	}
 
+	@Override
+	public void addLeaveBill(LeaveBill leaveBill) {
+		// TODO Auto-generated method stub
+		leaveBillDao.saveLeaveBill(leaveBill);
+		
+	}
+
+	@Override
+	public void deleteLeaveBill(long id) {
+		// TODO Auto-generated method stub
+		leaveBillDao.deleteLeaveBillById(id);
+	}
+	
+	
+
 }

@@ -25,8 +25,14 @@ public class PassportController {
 			return "main";
 	}
 	
+	@RequestMapping("addLeaveBill")
+	public Object addLeaveBill()
+	{
+		return "addLeaveBill";
+	}
+	 
 	@RequestMapping(value="/workflow")
-	public Object Welcome(HttpServletRequest request) {
+	public Object defineWorkFlow(HttpServletRequest request) {
 			return "defineWorkFlow";
 	}
 	

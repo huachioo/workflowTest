@@ -11,4 +11,8 @@ public interface LeaveBillDao {
 
 	LeaveBill findLeaveBillById(Long id);
 
+	void saveLeaveBill(LeaveBill leaveBill);
+
+	void deleteLeaveBillById(long id);
+
 }

@@ -1,19 +1,26 @@
 package com.activiti.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.activiti.entity.Employee;
 import com.activiti.service.EmployeeService;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 @Controller
 @RequestMapping("/employee")
 public class EmployController {
@@ -21,15 +28,20 @@ public class EmployController {
 	@Qualifier("employeeService")
 	private EmployeeService employeeService;
 	
-	   @RequestMapping(value ="/login")
-	    public String logon(@RequestParam("username") String userName, @RequestParam("password") String password,HttpSession session) {
-		    String username = userName;
+	@Autowired
+	private IdentityService identityService;
+	
+	@RequestMapping(value ="/login",method=RequestMethod.POST)
+	    public String logon(String username, String password,HttpSession session) throws IOException {
+		    String userName = username;
+		    System.out.println(username+password);
+		    boolean login = identityService.checkPassword(userName, password);
 			//2：使用用户名作为查询条件，查询员工表，获取当前用户名对应的信息
-			Employee emp = employeeService.findEmployeeByName(username);
+			Employee emp = employeeService.findEmployeeByName(userName);
 			//3：将查询的对象（惟一）放置到Session中
-			//SessionContext.setUser(emp,request);
 			session.setAttribute("user", emp);
 			session.setAttribute("username", username);
+			
 	        return "/main";
      
 	    }
@@ -60,9 +72,7 @@ public class EmployController {
 	   
 	   @RequestMapping("updateEmployee")
 	   public String updateEmployee(Employee employee){
-		   System.out.println(employee.getManager());
 		   employeeService.updateEmployee(employee);
-		   System.out.println(employee.getManager());
 		   return "redirect:../employee/employeeHome";
 	   }
 	   

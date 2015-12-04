@@ -1,6 +1,8 @@
 package com.activiti.service.impl;
 
 import java.util.List;
+
+import org.activiti.engine.impl.persistence.entity.UserEntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -8,11 +10,22 @@ import com.activiti.dao.EmployeeDao;
 import com.activiti.entity.Employee;
 import com.activiti.service.EmployeeService;
 @Service("employeeService")
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl extends UserEntityManager implements EmployeeService {
 	@Autowired
 	@Qualifier("employeeDao")
 	EmployeeDao employeeDao;
 
+	//覆盖identityService中的方法
+	//identityService主要用来在流程发起前设置发起人，记录在流程历史中 identityService.setAuthenticatedUserId("kitty")；
+	//查询方法logger.info(historyService.createHistoricProcessInstanceQuery().startedBy("ketty").singleResult().getProcessDefinitionId());
+	 @Override
+	 public Boolean checkPassword(String username, String password) {
+		 Employee employee = employeeDao.findEmployeeByName(username);
+		 boolean login = employee.getPassword().equals(password);
+		 System.out.print(login);
+	     return login;
+	 }
+	 
 	@Override
 	public Employee findEmployeeByName(String username) {
 		// TODO Auto-generated method stub
