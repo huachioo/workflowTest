@@ -7,13 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-			<a href="../passport/addLeaveBill">请假申请(普通)</a>
-			<a href="../leaveBill/leaveBillHome">查询请假申请(普通)</a><br>
-			<a href="../workflow/tasklist">查看当前任务(普通)</a>
-			<a href="/apply">运行中流程(普通)</a>
-			<a href="/apply">已结束流程(普通)</a><br>
-			<a href="../workflow/read">部署流程</a>
+			<a href="../passport/addReimburseBill">报销申请</a>
+			<a href="../reimburseBill/reimburseBillHome">查询报销申请</a><br>
+			<a href="../passport/addLeaveBill">请假申请</a>
+			<a href="../leaveBill/leaveBillHome">查询请假申请</a><br>
+			<a href="../workflow/tasklist">查看当前任务</a>
+			<a href="../workflow/historicProcessInstance">查看历史记录</a>
+			<a href="../employee/employeeHome">查看员工</a><br>
 			<a href="../workflow/deployHome">查询部署流程</a><br>
-			<a href="../employee/employeeHome">查看员工</a>
+			部署流程
+			<form action="../workflow/read" method="post">
+			   流程名 <input type="text" id="fileName" name="fileName"/><br>
+			  流程地址   <input type="file" id="fileAddress" name="fileAddress"/>
+			    <input type="submit" value="部署流程" /> 
+			</form>
 </body>
 </html>

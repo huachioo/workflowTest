@@ -27,6 +27,7 @@ public class ManageTaskHandler implements TaskListener{
 		Employee emp = employeeService.findEmployeeByName(name);
 		//设置个人任务的办理人
 		delegateTask.setAssignee(emp.getManager().getName());
+		System.out.println(emp.getManager().getName()+"dadsad");
 		
 	}
 

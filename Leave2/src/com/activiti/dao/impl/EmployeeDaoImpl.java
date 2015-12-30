@@ -10,7 +10,7 @@ import com.activiti.dao.EmployeeDao;
 import com.activiti.entity.Employee;
 
 @Repository("employeeDao")
-public class EmployeeDaoImpl extends HibernateDaoSupport implements EmployeeDao{
+public class EmployeeDaoImpl extends IBaseImpl implements EmployeeDao{
 	@Autowired
 	public void setSessionFactoryOverride(SessionFactory sessionFactory)
 	{

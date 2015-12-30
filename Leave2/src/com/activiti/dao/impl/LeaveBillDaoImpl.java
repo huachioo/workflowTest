@@ -12,7 +12,7 @@ import com.activiti.entity.Employee;
 import com.activiti.entity.LeaveBill;
 
 @Repository("leaveBillDao")
-public class LeaveBillDaoImpl extends HibernateDaoSupport implements LeaveBillDao {
+public class LeaveBillDaoImpl extends IBaseImpl implements LeaveBillDao {
 
 	@Autowired
 	public void setSessionFactoryOverride(SessionFactory sessionFactory)
@@ -31,11 +31,11 @@ public class LeaveBillDaoImpl extends HibernateDaoSupport implements LeaveBillDa
 	}
 
 
-	/**使用请假单ID，查询请假单的对象*/
-	@Override
-	public LeaveBill findLeaveBillById(Long id) {
-		return this.getHibernateTemplate().get(LeaveBill.class, id);
-	}
+//	/**使用请假单ID，查询请假单的对象*/
+//	@Override
+//	public LeaveBill findLeaveBillById(Long id) {
+//		return this.getHibernateTemplate().get(LeaveBill.class, id);
+//	}
 
 
 	@Override
@@ -48,8 +48,14 @@ public class LeaveBillDaoImpl extends HibernateDaoSupport implements LeaveBillDa
 	@Override
 	public void deleteLeaveBillById(long id) {
 		// TODO Auto-generated method stub
-		LeaveBill leaveBill = this.findLeaveBillById(id);
+		LeaveBill leaveBill = (LeaveBill) this.findBillById(id);
 		this.getHibernateTemplate().delete(leaveBill);
+	}
+
+
+	@Override
+	public Object findBillById(Long id) {
+		return this.getHibernateTemplate().get(LeaveBill.class, id);
 	}
 
 }

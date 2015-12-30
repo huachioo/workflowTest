@@ -39,12 +39,12 @@
 		       <c:forEach items="${tasklist}" var="p">
 		      		<tr>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${p.id }</div></td>
-				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">经理审批</div></td>
+				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${p.name }</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${p.createTime }</div></td>
 				        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${p.assignee }</div></td>
 				        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
 				        	<a href="../workflow/viewTaskForm?taskId=${p.id }">办理任务</a>
-							<a target="_blank" href="../workflow/viewImage?deploymentId=${p.id }">查看当前流程图</a>
+							<a href="../workflow/viewNowImage?taskId=${p.id }">查看当前流程图</a>
 				        </div></td>
 				    </tr> 
 		      	</c:forEach>

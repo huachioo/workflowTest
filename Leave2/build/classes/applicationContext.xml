@@ -15,7 +15,7 @@
  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
          destroy-method="close">
          <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-         <property name="url" value="jdbc:mysql://localhost:3306/activiti?useUnicode=true&amp;characterEncoding=utf8" />
+         <property name="url" value="jdbc:mysql://localhost:3306/activiti2?useUnicode=true&amp;characterEncoding=utf8" />
          <property name="username" value="root"/>
          <property name="password" value="admin"/>
          <property name="initialSize" value="20" />
@@ -83,7 +83,11 @@
 	</bean>
 		<bean id="employeeDao" class="com.activiti.dao.impl.EmployeeDaoImpl" parent="baseDao">
 	</bean>
-	   <bean id="leaveBillDao" class="com.activiti.dao.impl.LeaveBillDaoImpl" parent="baseDao">
+	    <bean id="leaveBillDao" class="com.activiti.dao.impl.LeaveBillDaoImpl" parent="baseDao">
+	</bean>
+	    <bean id="reimburseBillDao" class="com.activiti.dao.impl.ReimburseBillDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="ibase" class="com.activiti.dao.impl.IBaseImpl" parent="baseDao">
 	</bean>
 	<import resource="classpath:activiti.cfg.xml"/>
 </beans>

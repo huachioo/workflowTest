@@ -5,11 +5,11 @@ import java.util.List;
 import com.activiti.entity.Employee;
 import com.activiti.entity.LeaveBill;
 
-public interface LeaveBillDao {
+public interface LeaveBillDao extends IBase{
 
 	List<LeaveBill> findLeaveBillList(Employee employee);
 
-	LeaveBill findLeaveBillById(Long id);
+	//LeaveBill findLeaveBillById(Long id);
 
 	void saveLeaveBill(LeaveBill leaveBill);
 

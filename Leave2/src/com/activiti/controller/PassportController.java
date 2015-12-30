@@ -49,5 +49,10 @@ public class PassportController {
 		mav.addObject("employee", employee);
 		return mav;
 	}
+	
+	@RequestMapping(value="/addReimburseBill")
+	public Object addReimburseBill() {
+			return "addReimburseBill";
+	}
 
 }

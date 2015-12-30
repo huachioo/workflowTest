@@ -45,14 +45,14 @@
 				        	<c:if test="${p.state==0}">
 			        			<a href="../leaveBill/updateLeaveBill" >修改</a>
 								<a href="../leaveBill/deleteLeaveBill?id=${p.id}" >删除</a>
-								<a href="../workflow/startProcess?id=${p.id }" >申请请假</a>
+								<a href="../workflow/startProcess?id=${p.id }&formName=LeaveBill" >申请请假</a>
 			        		</c:if>
 			 				<c:if test="${p.state==1}">
-			 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=<s:property value="id"/>" >查看审核记录</a>
+			 					<a href="../workflow/viewHisComment?id=${p.id }&formName=LeaveBill" >查看审核记录</a>
 			 				</c:if>
 			 				<c:if test="${p.state==2}">
 			 					<a href="../leaveBill/deleteLeaveBill?id=${p.id}" >删除</a>
-			 					<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=<s:property value="id"/>" >查看审核记录</a>
+			 					<a href="../workflow/viewHisComment?id=${p.id }&formName=LeaveBill" >查看审核记录</a>
 			 				</c:if>
 				        	
 						</div></td>

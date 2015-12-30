@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.activiti.entity">
+<class name="ReimburseBill" table="a_ReimburseBill">
+	<id name="id" type="long" column="id">
+	     <generator class="native"/>
+	</id>
+	<property name="input" type="integer" column="input"/>
+	<property name="content"  type="string" column="content"/>
+	<property name="remark" type="string" column="remark"/>
+	<property name="reimburseDate" type="timestamp" column="reimburseDate"/>
+	<property name="state" type="integer" column="state"/>
+	<many-to-one name="employee" class="Employee" column="user_id"></many-to-one>
+</class>
+</hibernate-mapping>

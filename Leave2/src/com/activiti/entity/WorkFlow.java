@@ -13,7 +13,14 @@ public class WorkFlow {
 	private String taskId;		//任务ID
 	private String outcome;		//连线名称
 	private String comment;		//备注
+    private String formName;
 	
+	public String getFormName() {
+		return formName;
+	}
+	public void setFormName(String formName) {
+		this.formName = formName;
+	}
 	public File getFile() {
 		return file;
 	}
