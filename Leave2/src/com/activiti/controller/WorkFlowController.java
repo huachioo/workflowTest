@@ -143,7 +143,7 @@ public class WorkFlowController {
 		return "main";
 	}
 	
-	
+	//当前任务列表
 	@RequestMapping("tasklist")
 	public String listTask(HttpSession session,HttpServletRequest request){
 		//1：从Session中获取当前用户名
@@ -191,7 +191,8 @@ public class WorkFlowController {
 	 */
 	@RequestMapping("submitTask")
 	public String submitTask(WorkFlow workflow,HttpSession session){
-		workFlowService.saveSubmitTask(workflow,session);
+		String userName = (String) session.getAttribute("username");
+		workFlowService.saveSubmitTask(workflow,userName);
 		return "tasklist";
 	}
 	

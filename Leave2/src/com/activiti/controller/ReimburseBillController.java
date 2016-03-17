@@ -36,7 +36,7 @@ public class ReimburseBillController {
 		ModelAndView mav = new ModelAndView("reimburseBillList");
 		Employee employee = (Employee) session.getAttribute("user");
 		//1：查询所有的请假信息（对应a_leavebill），返回List<LeaveBill>
-		List<ReimburseBill> reimburseBillList = reimburseBillService.findreimburseBillList(employee); 
+		List<ReimburseBill> reimburseBillList = reimburseBillService.findReimburseBillList(employee); 
 		mav.addObject("reimburseBillList", reimburseBillList);
 		return mav;
 	}

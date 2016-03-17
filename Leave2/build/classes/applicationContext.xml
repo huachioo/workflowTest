@@ -6,16 +6,18 @@
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
          destroy-method="close">
          <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-         <property name="url" value="jdbc:mysql://localhost:3306/activiti2?useUnicode=true&amp;characterEncoding=utf8" />
+         <property name="url" value="jdbc:mysql://localhost:3306/activiti2?zeroDateTimeBehavior=convertToNull" />
          <property name="username" value="root"/>
          <property name="password" value="admin"/>
          <property name="initialSize" value="20" />
@@ -26,7 +28,7 @@
     
     
     <!-- 启用Spring Annotation -->
-	<context:annotation-config />
+	<context:annotation-config ></context:annotation-config>
     	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
 	<context:component-scan base-package="com.activiti">
 		 <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" /> 
@@ -90,4 +92,38 @@
 	<bean id="ibase" class="com.activiti.dao.impl.IBaseImpl" parent="baseDao">
 	</bean>
 	<import resource="classpath:activiti.cfg.xml"/>
+	<bean id="leaveBillService" class="com.activiti.service.impl.LeaveBillServiceImpl"></bean>
+	<bean id="reimburseBillService" class="com.activiti.service.impl.ReimburseBillServiceImpl"></bean>
+	
+	<bean class="com.activiti.ws.impl.BillWSImpl" id="BillWS" />
+    <jaxws:server address="/bill">
+		<jaxws:serviceBean>
+		<!-- 采用引用的方式获取 本地的cn.it.ws.h.StudentServiceImpl 并且发布ws服务 -->
+			<ref bean="BillWS"/>
+		</jaxws:serviceBean>
+		<!-- 配置日志 -->
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />			
+		</jaxws:outInterceptors>
+	</jaxws:server>
+	
+	<bean class="com.activiti.ws.impl.WorkFlowWSImpl" id="WorkFlowWS" />
+    <jaxws:server address="/workflow">
+		<jaxws:serviceBean>
+		<!-- 采用引用的方式获取 本地的cn.it.ws.h.StudentServiceImpl 并且发布ws服务 -->
+			<ref bean="WorkFlowWS"/>
+		</jaxws:serviceBean>
+		<!-- 配置日志 -->
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />			
+		</jaxws:outInterceptors>
+	</jaxws:server>
+	
+
 </beans>

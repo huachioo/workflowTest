@@ -25,7 +25,7 @@ public class ReimburseBillServiceImpl implements ReimburseBillService {
 	}
 
 	@Override
-	public List<ReimburseBill> findreimburseBillList(Employee employee) {
+	public List<ReimburseBill> findReimburseBillList(Employee employee) {
 		// TODO Auto-generated method stub
 		List<ReimburseBill> list = reimburseBillDao.findReimburseBillList(employee);
 		return list;

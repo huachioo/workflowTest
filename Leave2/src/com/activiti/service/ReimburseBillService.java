@@ -9,6 +9,6 @@ public interface ReimburseBillService {
 
 	void addReimburseBill(ReimburseBill reimburseBill);
 
-	List<ReimburseBill> findreimburseBillList(Employee employee);
+	List<ReimburseBill> findReimburseBillList(Employee employee);
 
 }

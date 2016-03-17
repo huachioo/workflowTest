@@ -42,7 +42,7 @@ public class EmployController {
 			session.setAttribute("user", emp);
 			session.setAttribute("username", username);
 			
-	        return "/main";
+	        return "/main";																																																																																																																																																																																																																																																																																																																															
      
 	    }
 	   

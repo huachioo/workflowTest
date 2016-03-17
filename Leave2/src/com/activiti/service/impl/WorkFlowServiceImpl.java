@@ -36,7 +36,8 @@ import org.springframework.stereotype.Service;
 import com.activiti.dao.IBase;
 import com.activiti.dao.LeaveBillDao;
 import com.activiti.dao.ReimburseBillDao;
-import com.activiti.dao.impl.LeaveBillDaoImpl;
+import com.activiti.entity.CommentforWS;
+import com.activiti.entity.TaskforWs;
 import com.activiti.entity.WorkFlow;
 import com.activiti.service.WorkFlowService;
 import com.activiti.util.WorkFlowReflect;
@@ -174,6 +175,28 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 					.list();
 		return list;
 	}
+	
+	
+	//ws获取task列表方法
+	@Override
+	public List<TaskforWs> findTaskListByNameWS(String userName) {
+		// TODO Auto-generated method stub
+		List<Task> list = taskService.createTaskQuery()//
+				.taskAssignee(userName)//指定个人任务查询
+				.orderByTaskCreateTime().asc()//
+				.list();
+		List<TaskforWs> wslist = new ArrayList<TaskforWs>();
+		for(Task task:list){
+			TaskforWs ws = new TaskforWs();
+			ws.setId(task.getId());
+			ws.setAssignee(task.getAssignee());
+			ws.setCreateTime(task.getCreateTime());
+            ws.setName(task.getName());
+            wslist.add(ws);
+		}
+		return wslist;
+	}
+	
 
 	/**使用任务ID，获取当前任务节点中对应的Form key中的连接的值*/
 	@Override
@@ -282,20 +305,28 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 		}
 		return list;
 	}
-
+	
 	/**指定连线的名称完成任务*/
 	@Override
-	public void saveSubmitTask(WorkFlow workflow,HttpSession session) {
+	public void saveSubmitTask(WorkFlow workflow,String userName) {
 		//获取任务ID
 		String taskId = workflow.getTaskId();
 		//获取连线的名称
 		String outcome = workflow.getOutcome();
+		System.out.println(outcome+"outcome");
 		//批注信息
 		String message = workflow.getComment();
 		//获取表单ID
 		Long id = workflow.getId();
 		//获取表单名
 		String formName = workflow.getFormName();
+		
+		System.out.println(workflow.getComment());
+		System.out.println(workflow.getFormName());
+		System.out.println(workflow.getOutcome());
+		System.out.println(workflow.getTaskId());
+		System.out.println(workflow.getId());
+		System.out.println(userName);
 		/**
 		 * 1：在完成之前，添加一个批注信息，向act_hi_comment表中添加数据，用于记录对当前申请人的一些审核信息
 		 */
@@ -313,7 +344,7 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 			  所有需要从Session中获取当前登录人，作为该任务的办理人（审核人），对应act_hi_comment表中的User_ID的字段，不过不添加审核人，该字段为null
 			 所以要求，添加配置执行使用Authentication.setAuthenticatedUserId();添加当前任务的审核人
 		 * */
-		Authentication.setAuthenticatedUserId((String) session.getAttribute("username"));
+		Authentication.setAuthenticatedUserId(userName);
 		taskService.addComment(taskId, processInstanceId, message);
 		
 		
@@ -324,6 +355,7 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 				 流程变量的值：连线的名称
 		 */
 	    Map<String,Object> variables = taskService.getVariables(taskId);
+	    variables.put("User", userName);
 		//Map<String,Object> variables = new HashMap<String, Object>();
 		if(outcome!=null && !outcome.equals("默认提交")){
 			variables.put("outcome", outcome);
@@ -331,8 +363,8 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 		//variables.put("Input",1600);
 		//3：使用任务ID，完成当前人的个人任务，同时流程变量
 		System.out.println(variables+"test");
-		
-		taskService.complete( taskId, variables);
+		taskService.complete(taskId, variables);
+		System.out.println("任务完成");
 		//4：当任务完成之后，需要指定下一个任务的办理人（使用类）-----已经开发完成
 		
 		/**
@@ -383,7 +415,29 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 		list = taskService.getProcessInstanceComments(processInstanceId);
 		return list;
 	}
-
+	
+	//获取commentws对象list
+	public List<CommentforWS> findCommentByTaskIdWS(String taskId) {
+		List<Comment> list = new ArrayList<Comment>();
+		Task task = taskService.createTaskQuery()//
+				.taskId(taskId)//使用任务ID查询
+				.singleResult();
+		String processInstanceId = task.getProcessInstanceId();
+		list = taskService.getProcessInstanceComments(processInstanceId);
+		List<CommentforWS> commentList = new ArrayList<CommentforWS>();
+		for(Comment comment:list){
+			CommentforWS commentforWS = new CommentforWS();
+			commentforWS.setFullMessage(comment.getFullMessage());
+			commentforWS.setId(comment.getId());
+			commentforWS.setTaskId(comment.getTaskId());
+			commentforWS.setTime(comment.getTime());
+			commentforWS.setUserId(comment.getUserId());
+			commentList.add(commentforWS);
+		}
+		return commentList;
+		
+	}
+	
 	@Override
 	public Object findBillById(String id, String formName) {
 		Object object = WorkFlowReflect.getObject(Long.parseLong(id),formName);
@@ -391,6 +445,7 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 		//object = this.findBillById(id, formName);
 		return object;
 	}
+
 	
 //	private Object findBillById(long id, String formName) {
 //		if(formName.equals("LeaveBill")){
@@ -479,5 +534,5 @@ public class WorkFlowServiceImpl implements WorkFlowService{
 		List<HistoricProcessInstance> his = historyService.createHistoricProcessInstanceQuery().finished().list();
 		return his;
 	}
-	
+
 }

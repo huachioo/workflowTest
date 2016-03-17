@@ -14,7 +14,9 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Comment;
 import org.activiti.engine.task.Task;
 
+import com.activiti.entity.CommentforWS;
 import com.activiti.entity.LeaveBill;
+import com.activiti.entity.TaskforWs;
 import com.activiti.entity.WorkFlow;
 
 public interface WorkFlowService {
@@ -39,7 +41,7 @@ public interface WorkFlowService {
 
 	List<Comment> findCommentByTaskId(String taskId);
 
-	void saveSubmitTask(WorkFlow workflow, HttpSession session);
+	void saveSubmitTask(WorkFlow workflow, String userName);
 
 	Object findBillByTaskId(String taskId);
 
@@ -54,6 +56,10 @@ public interface WorkFlowService {
 	Map<String, Object> findCoordingByTask(String taskId);
 
 	List<HistoricProcessInstance> historyProcess();
+
+	List<TaskforWs> findTaskListByNameWS(String userName);
+
+	List<CommentforWS> findCommentByTaskIdWS(String taskId);
 
 
 

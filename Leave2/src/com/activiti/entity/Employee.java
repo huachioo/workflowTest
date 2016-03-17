@@ -2,6 +2,8 @@ package com.activiti.entity;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 public class Employee implements Serializable{
 	/**
 	 * 
@@ -12,6 +14,7 @@ public class Employee implements Serializable{
 	private String password;//ÃÜÂë
 	private String email;//µç×ÓÓÊÏä
 	private String role;//½ÇÉ«
+	@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"}) 
 	private Employee manager;
 	
 	public Long getId() {

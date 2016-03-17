@@ -1,13 +1,12 @@
 package com.activiti.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class LeaveBill implements Serializable {
-
+public class LeaveBill{
 	/**
 	 * 
 	 */
@@ -20,6 +19,7 @@ public class LeaveBill implements Serializable {
 	private Date leaveDate; // 请假日期
 	
 	private String remark;//备注
+	@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"}) 
 	private Employee user;// 请假用户	
 	private Integer state=0;// 表单状态 0未执行 1执行中2已完成
 	public Long getId() {
